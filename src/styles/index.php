@@ -20,7 +20,7 @@
       $password = 'wsflt20a';
       $dbo = new PDO("mysql:host=" . $servername . ";port=3306;dbname=" . $dbname, $username, $password);
 // INSERT INTO `calendarapp60`.`tasks` (`topic`, `type`, `due_date`, `duration`, `comment`) VALUES ('Домашняя Работа', 'Дело', '2021-05-28', '11', 'Сделать срочно!');
-$dbo->exec('SET NAMES "utf8";');
+
       ?>
     <header class="header-section">
       <div class="header-section__logo-section">

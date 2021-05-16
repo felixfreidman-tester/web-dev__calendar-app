@@ -18,6 +18,11 @@ a {
   font-family: Helvetica;
   text-decoration: none;
 }
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
 .header-section {
   display: flex;
   padding: 0px 40px;
@@ -168,4 +173,49 @@ a {
 
 .task-section__task-card:hover > .task-card__tool-panel {
   display: flex;
+}
+
+.main-section__form {
+  background-color: #b3d9ff;
+  height: fit-content;
+  padding: 15px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border-radius: 8px;
+}
+.main-section__header {
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #0066cc;
+}
+
+.main-section__input-text {
+  border: none;
+  margin-bottom: 20px;
+  padding: 10px 15px;
+  width: 30vw;
+  cursor: pointer;
+  outline: none;
+  border-radius: 8px;
+  color: #0066cc;
+}
+
+.main-section__label {
+  font-size: 12px;
+  color: #595959;
+  margin-bottom: 10px;
+}
+
+#typeInput {
+  width: calc(30vw + 30px);
+}
+
+.main-section__btn {
+  border-radius: 8px;
+  border: none;
+  padding: 10px 15px;
+  background-color: #fff;
+  color: #0066cc;
 }
