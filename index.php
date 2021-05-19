@@ -36,7 +36,65 @@ $dbo->exec('SET NAMES "utf8";');
         </a>
       </div>
     </header>
+    <div class="dark">
+    <div class="main-section__modal-window" id = "modalWindow">
+     <form action="/src/scripts/updateData.php" class="main-section__form" method= "POST">
+      <button type="button" class="main-section__form-btn" onclick="closeModalWindow()"></button>
+        <div class="main-section__header">Edit the Task</div>
+        <label for="topicInput" class="main-section__label">Topic</label>
+        <input
+          type="text"
+          name="topicInputUpdate"
+          id="topicInput"
+          class="main-section__input-text"
+          placeholder="Homework"
+          pattern="^[a-zA-Z]+$"
+          required
+        />
+        <label for="topicInput" class="main-section__label">Type</label>
+        <select
+          name="typeInputUpdate"
+          id="typeInput"
+          class="main-section__input-text"
+        >
+          <option value="Business">Business</option>
+          <option value="Meeting">Meeting</option>
+          <option value="Call">Call</option>
+          <option value="Session">Session</option>
+        </select>
+        <label for="topicInput" class="main-section__label">Date</label>
+        <input
+          type="date"
+          id="dateInput"
+          name="dateInputUpdate"
+          max="2021-12-31"
+          class="main-section__input-text"
+        />
+        <label for="topicInput" class="main-section__label">Duration</label>
+        <input
+          type="text"
+          name="durationInputUpdate"
+          id="durationInput"
+          class="main-section__input-text"
+          placeholder="1 hour"
+          pattern="^[ 0-9]+$"
+          required
+        />
+        <label for="topicInput" class="main-section__label" style="visibility:none">Comment</label>
+        <textarea
+          type="text"
+          name="commentInputUpdate"
+          id="commentInput"
+          class="main-section__input-text"
+          style="visibility:none"
+        ></textarea>
+        <button type="submit" class="main-section__btn">Submit</button>
+      </form>
+    </div>
+  </div>
     <main class="main-section">
+    
+      
       <form class="main-section__filter-form" method="POST">
         <select
           name="selectTypeofTask"
@@ -56,54 +114,58 @@ $dbo->exec('SET NAMES "utf8";');
         <span class="task-section__header">Tasks List</span>
         <div class="task-section__content">
           <?php
+          $id = 0;
 foreach ($dbo->query('SELECT * FROM `tasks`;') as $row) {
     echo
-        '<div class="task-section__task-card">
-  <div class="task-card__content">
-    <div class="task-card__column">
-      <span class="task-card__header-name">Topic</span>
-      <span class="task-card-body-name task-card__topic"
-        >' . $row['topic'] . '</span
-      >
-    </div>
-    <div class="task-card__column">
-      <span class="task-card__header-name">Type</span>
-      <span class="task-card-body-name task-card__type">' . $row['type'] . '</span>
-    </div>
-    <div class="task-card__column">
-      <span class="task-card__header-name">Date</span>
-      <span class="task-card-body-name task-card__date">
-      ' . $row['due_date'] . '
-      </span>
-    </div>
-    <div class="task-card__column">
-      <span class="task-card__header-name">Duration</span>
-      <span class="task-card-body-name task-card__duration">
-      ' . $row['duration'] . ' hours
-      </span>
-    </div>
-    <div class="task-card__column">
-      <span class="task-card__header-name">Comment</span>
-      <span class="task-card-body-name task-card__comment"></span>
-      ' . $row['comment'] . '
-      </span>
-    </div>
-  </div>
-  <div class="task-card__tool-panel">
-    <button
-      type="button"
-      class="task-card__btn task-card__edit-btn"
-    ></button>
-    <button
-      type="button"
-      class="task-card__btn task-card__delete-btn"
-    ></button>
-  </div>
+      '<div class="task-section__task-card" id = "node'.$id.'">
+          <div class="task-card__content">
+            <div class="task-card__column">
+              <div class="task-card__header-name">Topic</div>
+              <div class="task-card-body-name task-card__topic node'.$id.'">' . $row['topic'] . '
+                </div>
+            </div>
+            <div class="task-card__column">
+              <div class="task-card__header-name">Type</div>
+              <div class="task-card-body-name task-card__type node'.$id.'">' . $row['type'] . '</div>
+            </div>
+            <div class="task-card__column">
+              <div class="task-card__header-name">Date</div>
+              <div class="task-card-body-name task-card__date node'.$id.'" >
+              ' . $row['due_date'] . '
+              </div>
+            </div>
+            <div class="task-card__column">
+              <div class="task-card__header-name">Duration(HOURS)</div>
+              <div class="task-card-body-name task-card__duration node'.$id.'" >
+              '.$row['duration'].'
+              </div>
+            </div>
+            <div class="task-card__column">
+              <div class="task-card__header-name">Comment</div>
+              <div class="task-card-body-name task-card__comment node'.$id.'">
+              ' . $row['comment'] . '
+              </div>
+            </div>
+          </div>
+          <div class="task-card__tool-panel">
+            <button
+              type="button"
+              class="task-card__btn task-card__edit-btn node'.$id.'"
+              onclick=openModalWindow("node'.$id.'")
+            >
+            </button>
+            <button
+              type="button"
+              class="task-card__btn task-card__delete-btn"
+            ></button>
+          </div>
 </div>';
+$id++;
 
 }?>
         </div>
       </div>
     </main>
+    <script src="/src/scripts/index.js"></script>
   </body>
 </html>

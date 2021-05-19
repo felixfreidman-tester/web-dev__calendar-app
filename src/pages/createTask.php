@@ -28,7 +28,7 @@
       </div>
     </header>
     <main class="main-section">
-      <form action="/src/scripts/updateData.php" class="main-section__form" method= "POST">
+      <form action="/src/scripts/addData.php" class="main-section__form" method= "POST">
         <div class="main-section__header">Create the Task</div>
         <label for="topicInput" class="main-section__label">Topic</label>
         <input
