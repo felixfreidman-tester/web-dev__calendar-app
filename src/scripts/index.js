@@ -12,11 +12,11 @@ if(month < 10) {
 
 dateInput.value = `${newdate}`;
 dateInput.min = `${newdate}`;
-console,log(newdate);
 
 let openModalWindow = (element) => {
     element = element.toString();
     console.log(element);
+    let id = element.replace('node', '');
     document.querySelector(".dark").classList.toggle("fadeIn");
     document.getElementById("modalWindow").classList.toggle("fadeIn");
     let cardInputArray = document.querySelectorAll(`.${element}`);
@@ -25,6 +25,7 @@ let openModalWindow = (element) => {
     document.getElementById("dateInput").value = cardInputArray[2].textContent.trim();
     document.getElementById("durationInput").value = cardInputArray[3].textContent.trim();
     document.getElementById("commentInput").value = cardInputArray[4].textContent.trim();
+    document.getElementById("idInput").value = id;
 }
 
 let closeModalWindow = () => {

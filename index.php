@@ -88,6 +88,13 @@ $dbo->exec('SET NAMES "utf8";');
           class="main-section__input-text"
           style="visibility:none"
         ></textarea>
+        <input
+          type="text"
+          readonly
+          name="idInputUpdate"
+          id="idInput"
+          style = "visibility: hidden"
+        />
         <button type="submit" class="main-section__btn">Submit</button>
       </form>
     </div>
@@ -114,7 +121,7 @@ $dbo->exec('SET NAMES "utf8";');
         <span class="task-section__header">Tasks List</span>
         <div class="task-section__content">
           <?php
-          $id = 0;
+          $id = 1;
 foreach ($dbo->query('SELECT * FROM `tasks`;') as $row) {
     echo
       '<div class="task-section__task-card" id = "node'.$id.'">
