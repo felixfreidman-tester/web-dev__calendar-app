@@ -10,7 +10,7 @@
       href="/src/images/favicon.png"
       type="image/x-icon"
     />
-    <title>Main Page: Calendar Page</title>
+    <title>Ongoing Tasks</title>
   </head>
   <body>
     <?php
@@ -117,16 +117,14 @@ $dbo->exec('SET NAMES "utf8";');
     </div>
   </div>
     <main class="main-section">
-    
-      
-      <form class="main-section__filter-form" method="POST" action = "/src/scripts/transport.php">
+    <form class="main-section__filter-form" method="POST" action = "/src/scripts/transport.php">
         <select
           name="showTasks"
           id="typeSelect"
           class="filter-form__input-select"
         >
-          <option value="anyTask" selected>Any Tasks</option>
-          <option value="ongoingTask">Ongoing Tasks</option>
+          <option value="anyTask">Any Tasks</option>
+          <option value="ongoingTask"  selected>Ongoing Tasks</option>
           <option value="expiredTask" >Expired Tasks</option>
         </select>
         <button type="submit" class="filter-form__input-button">
@@ -134,62 +132,65 @@ $dbo->exec('SET NAMES "utf8";');
         </button>
       </form>
       <div class="main-section__task-section">
-        <span class="task-section__header">Tasks List</span>
+        <span class="task-section__header">Ongoing Tasks List</span>
         <div class="task-section__content">
           <?php
-           
-
-foreach ($dbo->query('SELECT * FROM `tasks`;') as $row) {
-    echo
-      '<div class="task-section__task-card" id = "node'.$row['id'].'">
-          <div class="task-card__content">
-            <div class="task-card__column">
-              <div class="task-card__header-name">Topic</div>
-              <div class="task-card-body-name task-card__topic node'.$row['id'].'">' . $row['topic'] . '
+          $currentDay  = date("d");
+          $currentMonth = date("m");
+          $currentYear = date("Y");
+          $currentDate = $currentYear . '-' . $currentMonth . '-' . $currentDay;
+          foreach ($dbo->query("SELECT * FROM `tasks` WHERE `due_date` > '$currentDate';") as $row) {
+            echo
+              '<div class="task-section__task-card" id = "node'.$row['id'].'">
+                  <div class="task-card__content">
+                    <div class="task-card__column">
+                      <div class="task-card__header-name">Topic</div>
+                      <div class="task-card-body-name task-card__topic node'.$row['id'].'">' . $row['topic'] . '
+                        </div>
+                    </div>
+                    <div class="task-card__column">
+                      <div class="task-card__header-name">Type</div>
+                      <div class="task-card-body-name task-card__type node'.$row['id'].'">' . $row['type'] . '</div>
+                    </div>
+                    <div class="task-card__column">
+                      <div class="task-card__header-name">Date</div>
+                      <div class="task-card-body-name task-card__date node'.$row['id'].'" >
+                      ' . $row['due_date'] . '
+                      </div>
+                    </div>
+                    <div class="task-card__column">
+                      <div class="task-card__header-name">Duration(HOURS)</div>
+                      <div class="task-card-body-name task-card__duration node'.$row['id'].'" >
+                      '.$row['duration'].'
+                      </div>
+                    </div>
+                    <div class="task-card__column">
+                      <div class="task-card__header-name">Comment</div>
+                      <div class="task-card-body-name task-card__comment node'.$row['id'].'">
+                      ' . $row['comment'] . '
+                      </div>
+                    </div>
+                  </div>
+                  <div class="task-card__tool-panel">
+                    <button
+                      type="button"
+                      class="task-card__btn task-card__edit-btn node'.$row['id'].'"
+                      onclick=openModalWindow("node'.$row['id'].'")
+                    >
+                    </button>
+                    <button
+                      type="button"
+                      class="task-card__btn task-card__delete-btn"
+                      onclick=openModalWindowToDelete("node'.$row['id'].'")
+                    ></button>
+                  </div>
+        </div>';
+        
+        }?>
                 </div>
-            </div>
-            <div class="task-card__column">
-              <div class="task-card__header-name">Type</div>
-              <div class="task-card-body-name task-card__type node'.$row['id'].'">' . $row['type'] . '</div>
-            </div>
-            <div class="task-card__column">
-              <div class="task-card__header-name">Date</div>
-              <div class="task-card-body-name task-card__date node'.$row['id'].'" >
-              ' . $row['due_date'] . '
               </div>
-            </div>
-            <div class="task-card__column">
-              <div class="task-card__header-name">Duration(HOURS)</div>
-              <div class="task-card-body-name task-card__duration node'.$row['id'].'" >
-              '.$row['duration'].'
-              </div>
-            </div>
-            <div class="task-card__column">
-              <div class="task-card__header-name">Comment</div>
-              <div class="task-card-body-name task-card__comment node'.$row['id'].'">
-              ' . $row['comment'] . '
-              </div>
-            </div>
-          </div>
-          <div class="task-card__tool-panel">
-            <button
-              type="button"
-              class="task-card__btn task-card__edit-btn node'.$row['id'].'"
-              onclick=openModalWindow("node'.$row['id'].'")
-            >
-            </button>
-            <button
-              type="button"
-              class="task-card__btn task-card__delete-btn"
-              onclick=openModalWindowToDelete("node'.$row['id'].'")
-            ></button>
-          </div>
-</div>';
-
-}?>
-        </div>
-      </div>
-    </main>
-    <script src="/src/scripts/index.js"></script>
-  </body>
-</html>
+            </main>
+            <script src="/src/scripts/index.js"></script>
+          </body>
+        </html>
+        
